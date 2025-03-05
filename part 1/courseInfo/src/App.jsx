@@ -1,25 +1,32 @@
 const Header = (props) => {
   return (
-      <h1>{props.course}</h1>
+      <h1>{props.course} {props.test}</h1>
   )
 }
 
 const Content = (props) => {
+  const { exercises } = props 
   return (
     <div>
+      {
+        exercises.map((e) => (<Part key={e.part} exercise={e}/>))
+      }
     </div>
   )
 }
 
-const Total = (props) => {
+const Part = (props) => {
+  const { exercise } = props
+  console.log(exercise)
   return (
-    <p>Number of exercises {props.total}</p>
+    <p>{exercise.part} - {exercise.exercises}</p>
   )
 }
 
-const Part = (props) => {
+const Total = (props) => {
+  console.log(props)
   return (
-    <p>{props.part} {props.exercises}</p>
+    <p>Number of exercises {props.total}</p>
   )
 }
 
@@ -29,13 +36,13 @@ const App = () => {
     { part: 'Fundamentals of React', exercises: 10 },
     { part: 'Using props to pass data', exercises: 7 },
     { part: 'State of a component', exercises: 14 },
+    { part: 'Testing', exercises: 100 },
   ]
-  console.log(partsAndExercises)
-
   return (
     <div>
-      <Header course={course} />
-      <Total total={partsAndExercises[0].exercises + partsAndExercises[1].exercises + partsAndExercises[2].exercises} />
+      <Header course={course} test='string' />
+      <Total test='hello' total={partsAndExercises[0].exercises + partsAndExercises[1].exercises + partsAndExercises[2].exercises} />
+      <Content exercises={partsAndExercises}/>
     </div>
   )
 }
