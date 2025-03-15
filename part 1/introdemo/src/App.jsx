@@ -1,18 +1,43 @@
-const App = () => {
-  const friends = [
-    { name: 'Peter', age: 4},
-    { name: 'Deez', age: 100},
-  ]
-  const labels = [ 'Polo', 'Nautica' ]
+import { useState } from 'react'
 
+const History = (props) => {
+  if (props.allClicks.length === 0) {
+    return (
+      <div>
+        the app is used by pressing the buttons
+      </div>
+    )
+  }
   return (
-    <>
-      <h1>Greetings {friends[0].name} and {friends[1].name}</h1>
-      <p>{friends[0].name} {friends[0].age}</p>
-      <p>{friends[1].name} {friends[1].age}</p>
-      <p>{labels[0]} {labels[1]}</p>
-      <p>{labels}</p>
-    </>
+    <div>
+      Button press history: {props.allClicks.join(' ')}
+    </div>
+  )
+}
+
+const Button = (props) => (
+  <button onClick={props.onClick}>
+    {props.text}
+  </button>
+)
+
+const Display = props => <div>{props.value}</div>
+
+const App = () => {
+  const [value, setValue] = useState(10)
+
+  const setToValue = (newValue) => {
+    console.log('value now', newValue)
+    setValue(newValue)
+  }
+  
+  return (
+    <div>
+      <Display value={value} />
+      <Button onClick={() => setToValue(1000)} text="thousand" />
+      <Button onClick={() => setToValue(0)} text="reset" />
+      <Button onClick={() => setToValue(value + 1)} text="increment" />
+    </div>
   )
 }
 
